@@ -52,8 +52,6 @@ insert_table_query = '''
 '''
 cursor.execute(insert_table_query)
 
-
-
 connection.commit()
 
 print("connected to the database")

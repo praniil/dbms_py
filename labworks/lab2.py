@@ -70,7 +70,7 @@ insert_in_publishers = '''
     (2, 'Bantam Books', 'USA'),
     (3, 'Allen & Unwin', 'Australia')
 '''
-cursor.execute(insert_in_publishers)
+# cursor.execute(insert_in_publishers)
 
 insert_in_authors = '''
     insert into Authors(author_id, author_name, dob)
@@ -78,7 +78,7 @@ insert_in_authors = '''
     (2, 'George R.R. Martin', '1948-09-20'),
     (3, 'J.R.R. Tolkien', '1892-01-03')
 '''
-cursor.execute(insert_in_authors)
+# cursor.execute(insert_in_authors)
 
 insert_in_books = '''
     insert into Books(isbn, title, publication_year, number_of_pages, author_id, publisher_id)
@@ -87,7 +87,7 @@ insert_in_books = '''
     (3, 'A Game of Thrones', '1996-08-06', 25, 2, 2),
     (4, 'The Hobbit', '1937-09-21', 15, 3, 3)
 '''
-cursor.execute(insert_in_books)
+# cursor.execute(insert_in_books)
 
 insert_in_reviews = '''
     insert into Reviews(review_id, rating, comment, review_date, book_isbn)
@@ -95,7 +95,39 @@ insert_in_reviews = '''
     (2, 4, 'An epic tale of power and betrail', '1996-08-10', 2),
     (3, 5, 'A timeless classic', '1937-10-01', 4)
 '''
-cursor.execute(insert_in_reviews)
+# cursor.execute(insert_in_reviews)
+
+select_title_Harry = '''
+    select title from Books where title like '%Harry%';
+    select title published_date from Books where publication_year <= '1999-12-30';
+'''
+
+cursor.execute(select_title_Harry)
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+delete_rows_reviews = '''
+    delete from reviews where rating <= 4;
+'''
+cursor.execute(delete_rows_reviews)
+
+top_two_heighest_paid_books = '''
+    SELECT * FROM Books WHERE number_of_pages is not null ORDER BY number_of_pages DESC LIMIT 2;
+    select * from books where number_of_pages is not null ORDER BY number_of_pages DESC LIMIT 1;
+'''
+cursor.execute(top_two_heighest_paid_books)
+
+review_date_asc = '''
+    select * from Reviews order by review_date asc;
+'''
+cursor.execute(review_date_asc)
+
+update_publisher_id = '''
+    update books set publisher_id = 3 where isbn = 3;
+'''
+cursor.execute(update_publisher_id)
 
 connection.commit()
 print("connected to the database")
